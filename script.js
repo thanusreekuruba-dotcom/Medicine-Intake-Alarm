@@ -1,23 +1,136 @@
-// Store all medicine reminders
-let reminders = [];
+        let reminders = [];
 
 
-// Run after HTML has loaded
+// ===============================
+// LOGIN
+// ===============================
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    const button = document.getElementById("setReminderBtn");
+    const savedEmail = localStorage.getItem("medicineUser");
 
-    button.addEventListener("click", setReminder);
+    if (savedEmail) {
+
+        showMedicinePage(savedEmail);
+
+    }
+
+
+    document
+        .getElementById("loginBtn")
+        .addEventListener("click", login);
+
+
+    document
+        .getElementById("logoutBtn")
+        .addEventListener("click", logout);
+
+
+    document
+        .getElementById("setReminderBtn")
+        .addEventListener("click", setReminder);
+
 
     displayReminders();
 
-    // Check the time every second
+
+    // Check alarm every second
     setInterval(checkReminders, 1000);
 
 });
 
 
-// Set a new medicine reminder
+// Login function
+function login() {
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const loginMessage =
+        document.getElementById("loginMessage");
+
+
+    // Check email
+    if (email === "") {
+
+        loginMessage.textContent =
+            "⚠️ Please enter your email ID.";
+
+        loginMessage.style.color = "red";
+
+        return;
+    }
+
+
+    // Validate email format
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+    if (!emailPattern.test(email)) {
+
+        loginMessage.textContent =
+            "⚠️ Please enter a valid email ID.";
+
+        loginMessage.style.color = "red";
+
+        return;
+    }
+
+
+    // Save email
+    localStorage.setItem(
+        "medicineUser",
+        email
+    );
+
+
+    showMedicinePage(email);
+
+}
+
+
+// Show medicine page
+function showMedicinePage(email) {
+
+    document.getElementById("loginPage").style.display =
+        "none";
+
+    document.getElementById("medicinePage").style.display =
+        "block";
+
+    document.getElementById("userEmail").textContent =
+        "Logged in as: " + email;
+
+}
+
+
+// Logout
+function logout() {
+
+    localStorage.removeItem("medicineUser");
+
+    reminders = [];
+
+    document.getElementById("medicinePage").style.display =
+        "none";
+
+    document.getElementById("loginPage").style.display =
+        "block";
+
+    document.getElementById("email").value = "";
+
+    document.getElementById("loginMessage").textContent = "";
+
+    displayReminders();
+
+}
+
+
+// ===============================
+// MEDICINE REMINDER
+// ===============================
+
 function setReminder() {
 
     const medicine =
@@ -33,11 +146,14 @@ function setReminder() {
         document.getElementById("message");
 
 
-    // Check empty fields
-    if (medicine === "" || date === "" || time === "") {
+    if (
+        medicine === "" ||
+        date === "" ||
+        time === ""
+    ) {
 
         message.textContent =
-            "⚠️ Please enter medicine name, date and time.";
+            "⚠️ Please enter medicine, date and time.";
 
         message.style.color = "red";
 
@@ -45,12 +161,10 @@ function setReminder() {
     }
 
 
-    // Create date and time
     const reminderDate =
         new Date(date + "T" + time);
 
 
-    // Check whether selected time is in the past
     if (reminderDate.getTime() <= Date.now()) {
 
         message.textContent =
@@ -62,7 +176,6 @@ function setReminder() {
     }
 
 
-    // Create reminder object
     const reminder = {
 
         id: Date.now(),
@@ -73,25 +186,23 @@ function setReminder() {
 
         time: time,
 
-        reminderTime: reminderDate.getTime(),
+        reminderTime:
+            reminderDate.getTime(),
 
         completed: false
 
     };
 
 
-    // Add reminder
     reminders.push(reminder);
 
 
-    // Success message
     message.textContent =
         "✅ Medicine reminder set successfully!";
 
     message.style.color = "green";
 
 
-    // Clear input fields
     document.getElementById("medicine").value = "";
 
     document.getElementById("date").value = "";
@@ -99,24 +210,26 @@ function setReminder() {
     document.getElementById("time").value = "";
 
 
-    // Display reminders
     displayReminders();
 
 }
 
 
-// Display all reminders
+// Display reminders
 function displayReminders() {
 
     const reminderList =
         document.getElementById("reminderList");
 
 
-    // Clear old list
+    if (!reminderList) {
+        return;
+    }
+
+
     reminderList.innerHTML = "";
 
 
-    // No reminders
     if (reminders.length === 0) {
 
         reminderList.innerHTML =
@@ -126,20 +239,19 @@ function displayReminders() {
     }
 
 
-    // Display every reminder
     reminders.forEach(function (reminder) {
 
-        const reminderBox =
+        const box =
             document.createElement("div");
 
 
-        reminderBox.className = "reminder";
+        box.className = "reminder";
 
-        reminderBox.id =
+        box.id =
             "reminder-" + reminder.id;
 
 
-        reminderBox.innerHTML = `
+        box.innerHTML = `
 
             <strong>
                 💊 ${reminder.medicine}
@@ -156,20 +268,22 @@ function displayReminders() {
             <button
                 class="delete-btn"
                 onclick="deleteReminder(${reminder.id})">
+
                 🗑️ Delete
+
             </button>
 
         `;
 
 
-        reminderList.appendChild(reminderBox);
+        reminderList.appendChild(box);
 
     });
 
 }
 
 
-// Check whether it is time for a medicine
+// Check reminders
 function checkReminders() {
 
     const currentTime = Date.now();
@@ -193,81 +307,52 @@ function checkReminders() {
 }
 
 
-// Show medicine alarm
+// Show alarm
 function showAlarm(reminder) {
 
-    const alarmSound =
+    const alarm =
         document.getElementById("alarmSound");
 
 
-    // Try to play alarm
-    alarmSound.play().catch(function () {
+    alarm.play().catch(function () {
 
         console.log(
-            "Alarm sound was blocked by the browser."
+            "Browser blocked automatic sound."
         );
 
     });
 
 
-    // Show popup
     alert(
         "💊 MEDICINE REMINDER!\n\n" +
-        "Medicine: " + reminder.medicine + "\n" +
-        "Time: " + reminder.time
+        "Medicine: " +
+        reminder.medicine +
+        "\n\nTime: " +
+        reminder.time
     );
 
 
-    // Highlight reminder
-    const reminderBox =
+    const box =
         document.getElementById(
             "reminder-" + reminder.id
         );
 
 
-    if (reminderBox) {
+    if (box) {
 
-        reminderBox.classList.add("alarm");
+        box.classList.add("alarm");
 
     }
 
 
-    // Browser notification
-    showNotification(reminder);
-
-
-    // Stop alarm after 10 seconds
+    // Stop sound after 10 seconds
     setTimeout(function () {
 
-        alarmSound.pause();
+        alarm.pause();
 
-        alarmSound.currentTime = 0;
+        alarm.currentTime = 0;
 
     }, 10000);
-
-}
-
-
-// Browser notification
-function showNotification(reminder) {
-
-    if (!("Notification" in window)) {
-        return;
-    }
-
-
-    if (Notification.permission === "granted") {
-
-        new Notification(
-            "💊 Medicine Reminder",
-            {
-                body:
-                    "It is time to take " +
-                    reminder.medicine
-            }
-        );
-
-    }
 
 }
 
