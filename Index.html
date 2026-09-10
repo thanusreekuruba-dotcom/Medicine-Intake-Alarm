@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Medicine Intake Alarm</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>💊 Medicine Intake Alarm</h1>
+        <p class="subtitle">Set a reminder for your medicine</p>
+
+        <div class="form-box">
+
+            <label for="medicine">Medicine Name</label>
+            <input
+                type="text"
+                id="medicine"
+                placeholder="Example: Vitamin D"
+            >
+
+            <label for="date">Date</label>
+            <input type="date" id="date">
+
+            <label for="time">Time</label>
+            <input type="time" id="time">
+
+            <button id="setReminderBtn">
+                🔔 Set Medicine Reminder
+            </button>
+
+        </div>
+
+        <p id="message"></p>
+
+        <div class="reminders-section">
+
+            <h2>📋 My Reminders</h2>
+
+            <div id="reminderList">
+                <p class="empty">No reminders added yet.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Alarm sound -->
+    <audio id="alarmSound">
+        <source
+            src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"
+            type="audio/ogg"
+        >
+    </audio>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
