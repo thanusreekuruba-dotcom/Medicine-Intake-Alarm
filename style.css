@@ -4,6 +4,7 @@
     padding: 0;
 }
 
+
 body {
     font-family: Arial, sans-serif;
 
@@ -17,36 +18,190 @@ body {
     );
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     padding: 20px;
 }
 
 
-.container {
-    width: 100%;
-    max-width: 500px;
+/* LOGIN */
 
+.login-container {
+    width: 100%;
+
+    max-width: 430px;
+}
+
+
+.login-box {
     background: white;
 
-    padding: 30px;
+    padding: 35px;
 
-    border-radius: 20px;
+    border-radius: 22px;
+
+    text-align: center;
 
     box-shadow:
         0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 
-h1 {
-    text-align: center;
+.login-icon {
+    font-size: 55px;
 
+    margin-bottom: 10px;
+}
+
+
+.login-box h1 {
     color: #5b4bdb;
 
-    font-size: 28px;
-
     margin-bottom: 8px;
+}
+
+
+.login-box p {
+    color: #777;
+
+    margin-bottom: 25px;
+}
+
+
+.login-box label {
+    display: block;
+
+    text-align: left;
+
+    font-weight: bold;
+
+    color: #444;
+
+    margin-bottom: 7px;
+}
+
+
+.login-box input {
+    width: 100%;
+
+    padding: 14px;
+
+    border: 2px solid #ddd;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+.login-box input:focus {
+    border-color: #6c5ce7;
+}
+
+
+.login-box button {
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #6c5ce7;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.login-box button:hover {
+    background: #5141c7;
+}
+
+
+#loginMessage {
+    margin-top: 15px;
+
+    margin-bottom: 0;
+
+    font-weight: bold;
+}
+
+
+/* MEDICINE PAGE */
+
+.container {
+    display: none;
+
+    width: 100%;
+
+    max-width: 550px;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+
+.top-bar {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.top-bar h1 {
+    color: #5b4bdb;
+
+    font-size: 27px;
+}
+
+
+#userEmail {
+    color: #777;
+
+    font-size: 13px;
+
+    margin-top: 5px;
+}
+
+
+.logout-btn {
+    width: auto;
+
+    padding: 9px 14px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #ff5c5c;
+
+    color: white;
+
+    cursor: pointer;
 }
 
 
@@ -55,7 +210,7 @@ h1 {
 
     color: #777;
 
-    margin-bottom: 25px;
+    margin: 20px 0 25px;
 }
 
 
@@ -66,7 +221,7 @@ h1 {
 }
 
 
-label {
+.form-box label {
     font-weight: bold;
 
     color: #444;
@@ -77,27 +232,27 @@ label {
 }
 
 
-input {
+.form-box input {
     width: 100%;
 
     padding: 13px;
-
-    font-size: 16px;
 
     border: 2px solid #ddd;
 
     border-radius: 10px;
 
+    font-size: 16px;
+
     outline: none;
 }
 
 
-input:focus {
+.form-box input:focus {
     border-color: #6c5ce7;
 }
 
 
-button {
+#setReminderBtn {
     width: 100%;
 
     padding: 14px;
@@ -120,7 +275,7 @@ button {
 }
 
 
-button:hover {
+#setReminderBtn:hover {
     background: #5141c7;
 }
 
@@ -141,7 +296,7 @@ button:hover {
 }
 
 
-h2 {
+.reminders-section h2 {
     color: #444;
 
     font-size: 21px;
@@ -184,21 +339,22 @@ h2 {
 
     margin-top: 10px;
 
+    border: none;
+
+    border-radius: 7px;
+
     background: #ff5c5c;
 
-    font-size: 14px;
-}
+    color: white;
 
-
-.delete-btn:hover {
-    background: #e04444;
+    cursor: pointer;
 }
 
 
 .empty {
-    color: #888;
-
     text-align: center;
+
+    color: #888;
 
     padding: 15px;
 }
@@ -227,9 +383,4 @@ h2 {
         transform: scale(1);
     }
 
-}
-footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 16px;
 }
