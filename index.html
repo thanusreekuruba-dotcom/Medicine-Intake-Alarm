@@ -11,25 +11,89 @@
 
 <body>
 
-    <div class="container">
+    <!-- LOGIN PAGE -->
+    <div class="login-container" id="loginPage">
 
-        <h1>💊 Medicine Intake Alarm</h1>
-        <p class="subtitle">Set a reminder for your medicine</p>
+        <div class="login-box">
+
+            <div class="login-icon">💊</div>
+
+            <h1>Medicine Alarm</h1>
+
+            <p>Login to manage your medicine reminders</p>
+
+            <label for="email">Email ID</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+            >
+
+            <button id="loginBtn">
+                🔐 Login
+            </button>
+
+            <p id="loginMessage"></p>
+
+        </div>
+
+    </div>
+
+
+    <!-- MEDICINE ALARM PAGE -->
+    <div class="container" id="medicinePage">
+
+        <div class="top-bar">
+
+            <div>
+                <h1>💊 Medicine Alarm</h1>
+                <p id="userEmail"></p>
+            </div>
+
+            <button id="logoutBtn" class="logout-btn">
+                Logout
+            </button>
+
+        </div>
+
+        <p class="subtitle">
+            Never miss your medicine
+        </p>
+
 
         <div class="form-box">
 
-            <label for="medicine">Medicine Name</label>
+            <label for="medicine">
+                Medicine Name
+            </label>
+
             <input
                 type="text"
                 id="medicine"
                 placeholder="Example: Vitamin D"
             >
 
-            <label for="date">Date</label>
-            <input type="date" id="date">
 
-            <label for="time">Time</label>
-            <input type="time" id="time">
+            <label for="date">
+                Date
+            </label>
+
+            <input
+                type="date"
+                id="date"
+            >
+
+
+            <label for="time">
+                Time
+            </label>
+
+            <input
+                type="time"
+                id="time"
+            >
+
 
             <button id="setReminderBtn">
                 🔔 Set Medicine Reminder
@@ -37,14 +101,18 @@
 
         </div>
 
+
         <p id="message"></p>
+
 
         <div class="reminders-section">
 
             <h2>📋 My Reminders</h2>
 
             <div id="reminderList">
-                <p class="empty">No reminders added yet.</p>
+                <p class="empty">
+                    No reminders added yet.
+                </p>
             </div>
 
         </div>
@@ -52,16 +120,16 @@
     </div>
 
 
-    <!-- Alarm sound -->
+    <!-- Alarm Sound -->
     <audio id="alarmSound">
+
         <source
             src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"
             type="audio/ogg"
         >
+
     </audio>
-<footer>
-    <p>Created by Thanu Sree</p>
-</footer>
+
 
     <script src="script.js"></script>
 
